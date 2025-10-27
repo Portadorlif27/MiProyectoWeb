@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinanTech Bank - Inspirado en BBVA</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: #f4f6fb;
+      color: #222;
+    }
+
+    /* LOGIN */
+    #loginScreen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: url('https://www.bbva.com/wp-content/uploads/2022/03/BBVA-Sede-Central-Madrid-edificio-La-Vela-1024x683.jpg') no-repeat center center/cover;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 1000;
+    }
+    #loginOverlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 30, 80, 0.7);
+      z-index: -1;
+    }
+    #loginBox {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 40px 50px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      text-align: center;
+      color: white;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      max-width: 380px;
+    }
+    #loginBox input {
+      padding: 12px;
+      margin: 8px 0;
+      border: none;
+      border-radius: 6px;
+      width: 100%;
+      outline: none;
+      font-size: 1em;
+    }
+    #loginBox button {
+      background: #00aaff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 12px 24px;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    #loginBox button:hover { background: #007bff; transform: scale(1.05); }
+    #loginError { color: #ffb3b3; margin-top: 10px; font-size: 0.9em; }
+
+    /* NAVBAR */
+    .navbar {
+      background: #0033a0;
+      color: white;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 12px 40px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+    .navbar .logo { font-size: 1.5em; font-weight: 700; }
+    .navbar .logo span { color: #00aaff; }
+    nav a {
+      color: white; text-decoration: none; margin-left: 20px;
+      font-weight: 500; transition: 0.3s;
+    }
+    nav a:hover { color: #00aaff; }
+
+    /* CONTENIDO */
+    .container {
+      max-width: 1100px;
+      margin: 60px auto;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      padding: 25px;
+      margin-bottom: 25px;
+    }
+    h2 { color: #0033a0; margin-bottom: 20px; }
+
+    footer {
+      background: #0033a0;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      font-size: 0.9em;
+    }
+
+    input, .btn {
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      width: 100%;
+      font-size: 1em;
+    }
+    .btn {
+      background: #00aaff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    .btn:hover { background: #007bff; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #ddd;
+      text-align: center;
+    }
+    th { background: #0033a0; color: white; }
+    .paid { color: green; font-weight: bold; }
+    .pending { color: red; font-weight: bold; }
+
+    /* Modal simple */
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.4); display:flex; align-items:center; justify-content:center;
+    }
+    .modal {
+      background: white; padding:20px; border-radius:10px; max-width:420px; width:90%;
+      box-shadow:0 8px 30px rgba(0,0,0,0.3);
+    }
+    .modal .actions { display:flex; gap:10px; margin-top:15px; justify-content:flex-end; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN -->
+  <div id="loginScreen">
+    <div id="loginOverlay"></div>
+    <div id="loginBox">
+      <h1>FinanTech Bank</h1>
+      <p>Tu banca digital de confianza</p>
+      <input type="text" id="username" placeholder="Usuario">
+      <input type="password" id="password" placeholder="Contraseña">
+      <button onclick="login()">Ingresar</button>
+      <p id="loginError"></p>
+    </div>
+  </div>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar" style="display:none;">
+    <div class="logo">Finan<span>Tech</span></div>
+    <nav>
+      <a href="#" onclick="showSection('inicio')">Inicio</a>
+      <a href="#" onclick="showSection('cuenta')">Cuenta</a>
+      <a href="#" onclick="showSection('credito')">Crédito</a>
+      <a href="#" onclick="showSection('pagos')">Pagos</a>
+    </nav>
+  </header>
+
+  <main class="container" id="mainContent" style="display:none;">
+
+    <!-- INICIO -->
+    <section id="inicio" class="card">
+      <h2>Bienvenido a FinanTech Bank</h2>
+      <p style="color:black;">
+        FinanTech Bank te brinda la posibilidad de administrar tus finanzas de manera inteligente y segura.
+        <br><br>
+        💳 <b>Solicita créditos personalizados</b> con tasas preferenciales y tiempos de aprobación rápidos.<br>
+        💰 <b>Consulta tu saldo</b> y realiza movimientos en tiempo real, sin esperas ni filas.<br>
+        ⚡ <b>Paga tus cuotas</b> de préstamos fácilmente, con un solo clic.<br>
+        📈 <b>Recibe promociones exclusivas</b> por ser parte de nuestra comunidad digital.
+        <br><br>
+        <b>Promociones vigentes:</b><br>
+        - 🏦 Crédito rápido al 0% de interés por 30 días.<br>
+        - 💸 Descuento del 10% en pagos de servicios desde la app.<br>
+        - 📱 Bonos exclusivos al usar nuestra banca móvil.
+        <br><br>
+        <img src="https://www.bbva.com/wp-content/uploads/2023/09/BBVA-Banca-Digital-1024x576.jpg" width="100%" style="border-radius:12px;">
+      </p>
+    </section>
+
+    <!-- CUENTA -->
+    <section id="cuenta" class="card" style="display:none;">
+      <h2>Información de la Cuenta</h2>
+      <p><b>Nombre:</b> Héctor</p>
+      <p><b>Apellido:</b> Ramos Sedano</p>
+      <p><b>DNI:</b> 72354198</p>
+      <p><b>Teléfono:</b> 958423658</p>
+      <p id="balanceResult">Tu saldo disponible: <b>S/. 300</b></p>
+    </section>
+
+    <!-- CRÉDITO -->
+    <section id="credito" class="card" style="display:none;">
+      <h2>Solicitar Crédito</h2>
+      <p><b>Nombre y Apellido:</b> Héctor Ramos Sedano</p>
+
+      <div id="loanForm">
+        <input id="loanReason" type="text" placeholder="Motivo del préstamo">
+        <input id="loanAmount" type="number" placeholder="Monto solicitado" min="1">
+        <button class="btn" onclick="requestLoan()">Solicitar préstamo</button>
+      </div>
+
+      <div id="loanStatus" style="margin-top:10px; font-weight:500;"></div>
+
+      <button class="btn" style="background:#777;" onclick="showSection('inicio')">Regresar</button>
+    </section>
+
+    <!-- PAGOS -->
+    <section id="pagos" class="card" style="display:none;">
+      <h2>Pagos Pendientes</h2>
+      <div id="paymentStatus">No tienes cuotas registradas.</div>
+      <button class="btn" onclick="payAll()">Pagar todo</button>
+      <button class="btn" style="background:#777;" onclick="showSection('inicio')">Regresar</button>
+    </section>
+  </main>
+
+  <footer>© 2025 FinanTech Bank — Inspirado en BBVA</footer>
+
+  <!-- Modal de confirmación personalizado -->
+  <div id="confirmModal" style="display:none;" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div id="confirmMessage"></div>
+      <div class="actions">
+        <button class="btn" id="confirmAccept">Aceptar</button>
+        <button class="btn" id="confirmCancel" style="background:#777;">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let saldo = 300;
+    // cuotas ahora contiene todas las cuotas de todos los préstamos
+    let cuotas = [];
+    // contador para ids únicos de cuotas
+    let nextCuotaId = 1;
+
+    // función para mostrar modal de confirmación
+    function showConfirm(message) {
+      return new Promise(resolve => {
+        const modal = document.getElementById('confirmModal');
+        document.getElementById('confirmMessage').textContent = message;
+        modal.style.display = 'flex';
+
+        const accept = document.getElementById('confirmAccept');
+        const cancel = document.getElementById('confirmCancel');
+
+        function cleanup(result) {
+          accept.removeEventListener('click', onAccept);
+          cancel.removeEventListener('click', onCancel);
+          modal.style.display = 'none';
+          resolve(result);
+        }
+        function onAccept() { cleanup(true); }
+        function onCancel() { cleanup(false); }
+
+        accept.addEventListener('click', onAccept);
+        cancel.addEventListener('click', onCancel);
+      });
+    }
+
+    function login() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      const error = document.getElementById('loginError');
+
+      if (user === "Hector0827" && pass === "Hector0827") {
+        document.getElementById('loginScreen').style.display = 'none';
+        document.getElementById('navbar').style.display = 'flex';
+        document.getElementById('mainContent').style.display = 'block';
+        showSection('inicio');
+      } else {
+        error.textContent = "Usuario o contraseña incorrectos.";
+      }
+    }
+
+    function showSection(id) {
+      document.querySelectorAll("main section").forEach(sec => sec.style.display = "none");
+      document.getElementById(id).style.display = "block";
+      if (id === "pagos") renderPayments();
+    }
+
+    // FUNCION SOLICITAR PRESTAMO (con validaciones de deuda y modal)
+    async function requestLoan() {
+      const motivoEl = document.getElementById("loanReason");
+      const montoEl = document.getElementById("loanAmount");
+      const motivo = motivoEl.value.trim();
+      const monto = parseFloat(montoEl.value);
+      const statusBox = document.getElementById("loanStatus");
+      const form = document.getElementById("loanForm");
+
+      if (!motivo || !monto || monto <= 0) {
+        statusBox.textContent = "Completa todos los campos correctamente.";
+        statusBox.style.color = "red";
+        return;
+      }
+
+      const pendientes = cuotas.filter(c => c.estado === "Pendiente").length;
+      const pagadas = cuotas.filter(c => c.estado === "Pagado").length;
+
+      // Si hay pendientes y no se ha pagado ninguna -> bloquear
+      if (pendientes > 0 && pagadas === 0) {
+        statusBox.textContent = "";
+        alert("⚠️ No puedes solicitar un nuevo préstamo hasta pagar al menos una cuota pendiente.");
+        return;
+      }
+
+      // Si hay pendientes pero ya pagaste al menos 1 -> mostrar confirmación
+      if (pendientes > 0 && pagadas > 0) {
+        const msg = "Se le recuerda estimado cliente que tiene una deuda pendiente. Al solicitar este nuevo préstamo se le cobrará intereses. ¿Desea continuar?";
+        const confirmar = await showConfirm(msg);
+        if (!confirmar) {
+          statusBox.textContent = "";
+          return;
+        }
+      }
+
+      // Proceder con la solicitud
+      statusBox.style.color = "black";
+      statusBox.textContent = "Procesando tu solicitud...";
+      // ocultar formulario mientras procesa (UX)
+      form.style.display = "none";
+
+      setTimeout(() => {
+        saldo += monto;
+        // crear nuevas cuotas y agregarlas SIN borrar las previas
+        crearCuotas(monto);
+
+        statusBox.innerHTML = `✅ Solicitud aprobada por S/. ${monto.toFixed(2)}. Se generaron 3 cuotas.`;
+        statusBox.style.color = "green";
+        document.getElementById("balanceResult").innerHTML = `Tu saldo disponible: <b>S/. ${saldo.toFixed(2)}</b>`;
+
+        // limpiar inputs
+        motivoEl.value = "";
+        montoEl.value = "";
+
+        // después de mostrar el mensaje, se quita tanto mensaje como el formulario (según tu petición)
+        // aquí se muestra el mensaje por 3.5s y luego lo removemos y volvemos a mostrar el formulario
+        setTimeout(() => {
+          statusBox.textContent = "";
+          form.style.display = "block";
+          // actualizar listado de pagos en caso el usuario vaya a esa sección
+          renderPayments();
+        }, 3500);
+      }, 3000);
+    }
+
+    // crearCuotas ahora agrega a la lista global cuotas (no la reinicia)
+    function crearCuotas(monto) {
+      const hoy = new Date();
+      const cuotaMonto = monto / 3;
+      // agregamos 3 cuotas, cada una con id único (nextCuotaId)
+      for (let i = 1; i <= 3; i++) {
+        let fecha = new Date(hoy);
+        fecha.setMonth(hoy.getMonth() + i);
+        cuotas.push({
+          id: nextCuotaId++,
+          monto: cuotaMonto,
+          fecha: fecha.toLocaleDateString(),
+          estado: "Pendiente"
+        });
+      }
+    }
+
+    function renderPayments() {
+      const div = document.getElementById("paymentStatus");
+      if (cuotas.length === 0) {
+        div.innerHTML = "No tienes cuotas registradas.";
+        return;
+      }
+
+      let html = `<table>
+        <tr><th>#</th><th>Monto</th><th>Fecha</th><th>Estado</th><th>Acción</th></tr>`;
+      cuotas.forEach(c => {
+        html += `<tr>
+          <td>${c.id}</td>
+          <td>S/. ${c.monto.toFixed(2)}</td>
+          <td>${c.fecha}</td>
+          <td class="${c.estado === 'Pagado' ? 'paid' : 'pending'}">${c.estado}</td>
+          <td>${c.estado === 'Pendiente' ? `<button class='btn' onclick='pagarCuota(${c.id})'>Pagar</button>` : '-'}</td>
+        </tr>`;
+      });
+      html += "</table>";
+      div.innerHTML = html;
+    }
+
+    function pagarCuota(id) {
+      const cuota = cuotas.find(c => c.id === id);
+      if (!cuota || cuota.estado === "Pagado") return;
+      if (saldo >= cuota.monto) {
+        saldo -= cuota.monto;
+        cuota.estado = "Pagado";
+        document.getElementById("balanceResult").innerHTML = `Tu saldo disponible: <b>S/. ${saldo.toFixed(2)}</b>`;
+        renderPayments();
+        alert(`✅ Cuota ${id} pagada con éxito.`);
+      } else {
+        alert("⚠️ Saldo insuficiente para pagar esta cuota.");
+      }
+    }
+
+    function payAll() {
+      if (cuotas.length === 0) {
+        alert("No hay cuotas por pagar.");
+        return;
+      }
+      const total = cuotas
+        .filter(c => c.estado === "Pendiente")
+        .reduce((sum, c) => sum + c.monto, 0);
+
+      if (saldo >= total) {
+        saldo -= total;
+        cuotas.forEach(c => c.estado = "Pagado");
+        document.getElementById("balanceResult").innerHTML = `Tu saldo disponible: <b>S/. ${saldo.toFixed(2)}</b>`;
+        renderPayments();
+        alert("✅ Todas las cuotas fueron pagadas exitosamente.");
+      } else {
+        alert("⚠️ Saldo insuficiente para pagar todas las cuotas.");
+      }
+    }
+  </script>
+</body>
+</html>

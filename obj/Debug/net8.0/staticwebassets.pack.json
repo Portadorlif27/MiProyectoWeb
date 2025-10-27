@@ -1,0 +1,33 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\css\\style.css",
+      "PackagePath": "staticwebassets\\css\\style.css"
+    },
+    {
+      "Id": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\js\\app.js",
+      "PackagePath": "staticwebassets\\js\\app.js"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.FinanTechSolutionsSample.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.FinanTechSolutionsSample.props",
+      "PackagePath": "build\\FinanTechSolutionsSample.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.FinanTechSolutionsSample.props",
+      "PackagePath": "buildMultiTargeting\\FinanTechSolutionsSample.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.FinanTechSolutionsSample.props",
+      "PackagePath": "buildTransitive\\FinanTechSolutionsSample.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

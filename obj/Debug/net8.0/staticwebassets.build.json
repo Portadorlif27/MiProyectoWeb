@@ -1,0 +1,77 @@
+{
+  "Version": 1,
+  "Hash": "mbYoRhfVMKlev2OxP414udbAveizaBFV6zMKQFeFLi0=",
+  "Source": "FinanTechSolutionsSample",
+  "BasePath": "_content/FinanTechSolutionsSample",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [
+    {
+      "Name": "FinanTechSolutionsSample\\wwwroot",
+      "Source": "FinanTechSolutionsSample",
+      "ContentRoot": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\",
+      "BasePath": "_content/FinanTechSolutionsSample",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\css\\style.css",
+      "SourceId": "FinanTechSolutionsSample",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\",
+      "BasePath": "_content/FinanTechSolutionsSample",
+      "RelativePath": "css/style.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\style.css"
+    },
+    {
+      "Identity": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\index.html",
+      "SourceId": "FinanTechSolutionsSample",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\",
+      "BasePath": "_content/FinanTechSolutionsSample",
+      "RelativePath": "index.html",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\index.html"
+    },
+    {
+      "Identity": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\js\\app.js",
+      "SourceId": "FinanTechSolutionsSample",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\GYS\\Desktop\\FinanTechSolutionsSample_net8_final\\wwwroot\\",
+      "BasePath": "_content/FinanTechSolutionsSample",
+      "RelativePath": "js/app.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\app.js"
+    }
+  ]
+}
